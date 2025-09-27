@@ -11,10 +11,7 @@
 	
 ## Circuit Diagram:
 
- 
-
-
-
+ <img width="812" height="437" alt="image" src="https://github.com/user-attachments/assets/f6f69628-6bd2-4e3d-9d3a-bf8e801205a7" />
 
 ## Theory :
  The Arduino Uno is powered by the ATmega328P, an 8-bit microcontroller that runs at 16 MHz. It has 32 KB of flash memory, 2 KB of SRAM, and 1 KB of EEPROM. The board 
@@ -57,10 +54,42 @@ Step 7: Save Your Work
 •	Save the Circuit: Click "Save" to keep your circuit design and code for future use.
 
 ## Program:
+```
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
+int gas_lvl=0;
+
+void setup() {
+  pinMode(A0, INPUT);
+  pinMode(8, OUTPUT);
+  Serial.begin(9600);
+  lcd.begin(16, 2);
+  lcd.print("Gas Level: ");
+}
+
+void loop() {
+  gas_lvl = analogRead(A0);
+  
+  lcd.setCursor(12, 0);
+  lcd.print(gas_lvl);
+  lcd.setCursor(0, 1);
+  if(gas_lvl<125){
+    lcd.print("      Safe      ");
+    digitalWrite(8, LOW);
+  }else if(gas_lvl>125 && gas_lvl<145){
+  	lcd.print(" Slight Leakage ");
+    digitalWrite(8, LOW);
+  }else{  	
+  	digitalWrite(8, HIGH);
+    lcd.print("    Critical    ");
+  }
+}
+```
 ## Output:
 
-   
+https://github.com/user-attachments/assets/4cc3f4e9-65f5-4bd7-94a4-1a94e86ba350
+
 
 ## Result:
-
+Thus the required gas detection output to verfied successfully.
